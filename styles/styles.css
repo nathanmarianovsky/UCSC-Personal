@@ -1,0 +1,33 @@
+/*------------------------------- All Styles Pertaining to the Navigation Bar -------------------------------*/
+nav {
+	background-color: #003333;
+}
+
+.nav-wrapper .brand-logo {
+	font-size: 25px;
+}
+
+/*------------------------------- All Styles Pertaining to the Main Body -------------------------------*/
+body {
+	background-color: #669999;
+}
+
+main {
+	color: black;
+	width: 70%;
+	margin: 30px auto 0 auto;
+}
+
+main table {
+	border: 0.8mm solid black;
+	background-color: white;
+}
+
+main table a {
+	color: inherit;
+}
+
+#notes_table {
+	width: 70%;
+	margin: 30px auto 30px auto;
+}
