@@ -18,13 +18,13 @@ main {
 	margin: 30px auto 0 auto;
 }
 
-#message {
+.message {
 	margin: 30px auto 30px auto;
     background-color: white;
     border: 0.8mm solid black;
 }
 
-#message_content {
+.message_content {
 	margin: 20px;
 }
 
