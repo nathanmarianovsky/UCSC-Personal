@@ -8,6 +8,13 @@ define(["jquery"], ($) => {
 				$("body").append(data);
 				$('select').material_select();
 				MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
+
+				$(".notes_table > tbody > tr").hide();
+
+				$(".notes_table > thead > tr").click(function() {
+		       		$obj = $(this).closest(".notes_table").find("tbody > tr");
+		       		$obj.slideToggle();
+		    	});
 			});
 		});
 	};

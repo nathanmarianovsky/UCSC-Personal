@@ -37,11 +37,28 @@ main table {
 	background-color: white;
 }
 
+main .table_header table {
+	border-bottom: 0mm solid black;
+}
+
+main .table_body table {
+	border-top: 0mm solid black;
+}
+
 main table a {
 	color: inherit;
 }
 
-#notes_table {
+.notes_table {
+	/*display: none;*/
+	margin: 30px auto 30px auto;
+}
+
+.head_click {
+	cursor: pointer;
+}
+
+#info_table {
 	width: 70%;
 	margin: 30px auto 30px auto;
 }
