@@ -62,3 +62,8 @@ main table a {
 	width: 70%;
 	margin: 30px auto 30px auto;
 }
+
+#open_source {
+	padding-left: 4px;
+	color: inherit;
+}
