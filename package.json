@@ -1,12 +1,12 @@
 {
   "name": "web_app",
   "version": "1.0.0",
-  "description": "<h1 align=\"center\">JS Implementation of Rotations</h1>",
+  "description": "<h1 align=\"center\">Personal Site</h1>",
   "main": "Quaternions.js",
   "dependencies": {
-    "express": "^4.13.4",
-    "jquery": "^2.2.3",
-    "requirejs": "^2.2.0",
+    "express": "^4.16.2",
+    "jquery": "^3.0.0",
+    "requirejs": "^2.3.5",
     "router5": "^0.6.4"
   },
   "devDependencies": {
