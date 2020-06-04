@@ -1,8 +1,8 @@
 {
-  "name": "web_app",
+  "name": "seminar",
   "version": "1.0.0",
-  "description": "<h1 align=\"center\">Personal Site</h1>",
-  "main": "Quaternions.js",
+  "description": "<h1 align=\"center\">Seminar Site</h1>",
+  "main": "app.js",
   "dependencies": {
     "express": "^4.16.2",
     "jquery": "^3.5.0",

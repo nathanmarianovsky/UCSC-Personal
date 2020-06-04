@@ -15,6 +15,12 @@ define(["jquery"], ($) => {
 		       		$obj = $(this).closest(".notes_table").find("tbody > tr");
 		       		$obj.slideToggle();
 		    	});
+		    	$(".modal-trigger").leanModal({
+					dismissible: false,
+					opacity: 2,
+					inDuration: 1000,
+					outDuration: 1000
+				});
 			});
 		});
 	};

@@ -28,6 +28,20 @@ main {
 	margin: 20px;
 }
 
+.message_title {
+	margin: 20px;
+    font-size: 30px;
+    padding-left: 45%;
+    text-decoration: underline;
+}
+
+.presentation_title {
+	margin: 20px;
+    font-size: 30px;
+    padding-left: 37%;
+    text-decoration: underline;
+}
+
 #signature {
 	margin-top: -5px;
 }
@@ -66,4 +80,13 @@ main table a {
 #open_source {
 	padding-left: 4px;
 	color: inherit;
+}
+
+.presentations {
+	padding-left: 38%;
+	border: none;
+}
+
+.modal-trigger {
+	cursor: pointer;
 }
