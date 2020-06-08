@@ -1,5 +1,5 @@
 {
-  "name": "Rotations",
+  "name": "Billiard-Dynamics",
   "version": "1.0.0",
   "license": "MIT",
   "ignore": [
@@ -9,9 +9,8 @@
     "test",
     "tests"
   ],
-  "homepage": "https://github.com/nathanmarianovsky/Rotations",
   "authors": [
-    "Nathan Marianovsky <nathanmarianovsky@gmail.com>"
+    "Nathan Marianovsky <nathanmarianovsky@manualmath.com>"
   ],
   "dependencies": {
     "materializecss-amd": "~1.0.1"
