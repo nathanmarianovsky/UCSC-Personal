@@ -6,6 +6,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "jquery": "^3.0.0",
+    "mathjs": "^6.6.4",
+    "plotly": "^1.0.6",
     "requirejs": "^2.3.5",
     "router5": "^0.6.4"
   },
