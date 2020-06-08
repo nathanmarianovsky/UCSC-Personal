@@ -4,11 +4,11 @@
   "description": "<h1 align=\"center\">Billiard-Dynamics</h1>",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.16.2",
-    "jquery": "^3.0.0",
-    "mathjs": "^6.6.4",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mathjs": "^6.6.5",
     "plotly": "^1.0.6",
-    "requirejs": "^2.3.5",
+    "requirejs": "^2.3.6",
     "router5": "^0.6.4"
   },
   "devDependencies": {
