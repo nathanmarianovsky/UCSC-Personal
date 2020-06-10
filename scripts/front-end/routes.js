@@ -56,12 +56,12 @@ define(["jquery"], ($) => {
 
 			// Given the coefficients of the magnetic trajectory this returns a point on the trajectory at time t
 			function evaluateMagneticTrajectory(t,A,B,C,D,K) {
-				var value1 = math.sin(t),
-					value2 = math.cos(t),
-					firstComponent = A + ((B / K) * value1) + ((D / K) * (1 - value2)),
-					secondComponent = C + ((D / K) * value1) + ((B / K) * (value2 - 1)),
-					firstVelocityComponent = (B * value2) + (D * value1),
-					secondVelocityComponent = (D * value2) - (B * value1);
+				var value1 = math.sin(math.abs(K) * t),
+					value2 = math.cos(math.abs(K) * t),
+					firstComponent = A + ((B / math.abs(K)) * value1) + ((D / K) * (1 - value2)),
+					secondComponent = C + ((D / math.abs(K)) * value1) + ((B / K) * (value2 - 1)),
+					firstVelocityComponent = (B * value2) + (D * math.sign(K) * value1),
+					secondVelocityComponent = (D * value2) - (B * math.sign(K) * value1);
 				return {x: firstComponent, y: secondComponent, v_x: firstVelocityComponent, v_y: secondVelocityComponent};
 			}
 
@@ -77,10 +77,10 @@ define(["jquery"], ($) => {
 
 			// This represents the implicit function assocaited to the ellipse and is used by the bisection method to determine its roots
 			function magneticFunction(t,A,B,C,D,K,xLength,yLength) {
-				var value1 = math.sin(t),
-					value2 = math.cos(t),
-					firstComponent = A + ((B / K) * value1) + ((D / K) * (1 - value2)),
-					secondComponent = C + ((D / K) * value1) + ((B / K) * (value2 - 1));
+				var value1 = math.sin(math.abs(K) * t),
+					value2 = math.cos(math.abs(K) * t),
+					firstComponent = A + ((B / math.abs(K)) * value1) + ((D / K) * (1 - value2)),
+					secondComponent = C + ((D / math.abs(K)) * value1) + ((B / K) * (value2 - 1));
 				return math.pow(firstComponent / xLength,2) + math.pow(secondComponent / yLength,2) - 1;
 			}
 
@@ -93,21 +93,24 @@ define(["jquery"], ($) => {
 
 			// Initial Conditions
 
-			var theta = 3 * math.pi / 2,
-				a = 1,
+			var theta = 0,
+				a = 2,
 				b = 1,
 				max = math.max(a,b);
 				param = 0,
+				steps = 0,
 				stop = 0,
 				iterX = [],
 				iterY = [],
 				coefficientList = [],
 				check = 0,
 				mass = 1,
-				charge = 1,
-				magneticField = 1,
-				scaling = (charge * magneticField) / mass,
-				velocity = normalizeVector({x: 1, y: .5, v_x: 0, v_y: 0});
+				charge = -1,
+				outerMagneticField = 2,
+				innerMagneticField = -1,
+				outerScaling = (charge * outerMagneticField) / mass,
+				innerScaling = (charge * innerMagneticField) / mass,
+				velocity = normalizeVector({x: -1, y: -1, v_x: 0, v_y: 0});
 
 			var point = {x: a * math.cos(theta), y: b * math.sin(theta), v_x: velocity.x, v_y: velocity.y};
 
@@ -119,44 +122,109 @@ define(["jquery"], ($) => {
 			iterX.push(point.x);
 			iterY.push(point.y);
 
-			for(var i = 0; i < 50; i++) {
+			for(var i = 0; i < 15; i++) {
 				// Evaluate inner trajectory and add to the list
-				point = evaluateTrajectory(point.x,point.y,point.v_x,point.v_y,a,b);
-				iterX.push(point.x);
-				iterY.push(point.y);
+				// point = evaluateTrajectory(point.x,point.y,point.v_x,point.v_y,a,b);
+				// iterX.push(point.x);
+				// iterY.push(point.y);
+
 
 				// Generates the list of coefficients used for a single magnetic trajectory
 				coefficientList = evaluateCoefficients(point.x,point.y,point.v_x,point.v_y);
 
 				// The bisection method provides an approximation as to where a magnetic arc should stop, i.e. along the intersection
-				stop = bisection([.5,6],magneticFunction,math.pow(10,-15),coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],scaling,a,b);
+				// stop = bisection([.05,5.8],magneticFunction,math.pow(10,-15),coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],innerScaling,a,b);
+				// console.log("here2");
+				// console.log(stop);
 
 				// Resets the start time for the magnetic trajectory
 				param = 0;
 
 				// A point used to determine whether traveling in positive time lands in the exterior or interior of a region
-				check = evaluateMagneticTrajectory(stop / 2,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],scaling);
+				// check = evaluateMagneticTrajectory(stop / 2,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],innerScaling);
+				check = evaluateMagneticTrajectory(.01,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],innerScaling);
 				
+				// console.log("here1");
+
+				// console.log(checkRegion(check,a,b));
+
+				steps = 0;
+
 				// Evaluate outer trajectory and add to the list
-				if(checkRegion(check,a,b) == 1) {
-					while(param <= stop) {
+				if(checkRegion(check,a,b) == 0) {
+					// while(param <= stop) {
+					while(checkRegion(point,a,b) == 0) {
+						if(steps >= math.pow(10,4)) { break; }
+						else { steps++; }
 						param += .01;
-						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],scaling);
+						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],innerScaling);
 						iterX.push(point.x);
 						iterY.push(point.y);
 					}
 				}
 				else {
-					while(stop - (2 * math.pi) <= param) {
+					// while(stop - (2 * math.pi) <= param) {
+					while(checkRegion(point,a,b) == 0) {
+						if(steps >= math.pow(10,4)) { break; }
+						else { steps++; }
 						param -= .01;
-						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],scaling);
+						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],innerScaling);
+						iterX.push(point.x);
+						iterY.push(point.y);
+					}
+				}
+
+				console.log(param);
+
+
+				console.log("here");
+
+
+
+
+
+				// Generates the list of coefficients used for a single magnetic trajectory
+				coefficientList = evaluateCoefficients(point.x,point.y,point.v_x,point.v_y);
+
+				// The bisection method provides an approximation as to where a magnetic arc should stop, i.e. along the intersection
+				// stop = bisection([.01,6],magneticFunction,math.pow(10,-15),coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],outerScaling,a,b);
+				// console.log("bisecting over here brah");
+
+				// Resets the start time for the magnetic trajectory
+				param = 0;
+
+				// A point used to determine whether traveling in positive time lands in the exterior or interior of a region
+				// check = evaluateMagneticTrajectory(stop / 2,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],outerScaling);
+				check = evaluateMagneticTrajectory(.01,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],outerScaling);
+				
+				steps = 0;
+
+				// Evaluate outer trajectory and add to the list
+				if(checkRegion(check,a,b) == 1) {
+					// while(param <= stop) {
+					while(checkRegion(point,a,b) == 1) {
+						if(steps >= math.pow(10,4)) { break; }
+						else { steps++; }
+						param += .01;
+						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],outerScaling);
+						iterX.push(point.x);
+						iterY.push(point.y);
+					}
+				}
+				else {
+					// while(stop - (2 * math.pi) <= param) {
+					while(checkRegion(point,a,b) == 1) {
+						if(steps >= math.pow(10,4)) { break; }
+						else { steps++; }
+						param -= .01;
+						point = evaluateMagneticTrajectory(param,coefficientList[0],coefficientList[1],coefficientList[2],coefficientList[3],outerScaling);
 						iterX.push(point.x);
 						iterY.push(point.y);
 					}
 				}
 			}
 
-
+			console.log("about to plot brah");
 
 			// Plotting Data
 
@@ -172,13 +240,14 @@ define(["jquery"], ($) => {
 			  	x: arrX,
 			  	y: arrY,
 			 	name: "Ellipse",
-			  	type: 'scatter'
+			  	type: "scatter"
 			};
 
 			var trace2 = {
 				x: iterX,
 				y: iterY,
-				type: 'scatter'
+				name: "Trajectory",
+				type: "scatter"
 			};
 
 			var data = [trace1,trace2];
@@ -189,6 +258,8 @@ define(["jquery"], ($) => {
 			  	xaxis: {range: [-(max + 2), max + 2]},
 	  			yaxis: {range: [-(max + 2), max + 2]}
 			};
+
+			console.log("all the way at the end");
 
 			Plotly.newPlot('myDiv', data, layout, {scrollZoom: true, responsive: true});
 			$("#myDiv").children().first().children().first().children().first().css({
