@@ -42,6 +42,13 @@ main {
     text-decoration: underline;
 }
 
+.post_title {
+	margin: 20px;
+    font-size: 30px;
+    padding-left: 40%;
+    text-decoration: underline;
+}
+
 #signature {
 	margin-top: -5px;
 }
