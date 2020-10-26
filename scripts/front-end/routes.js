@@ -5,6 +5,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 
 	exports.add_listeners = (router, Plotly, math, Materialize) => {
 
+		// Default route is designed to simply be a data collector
 		router.addRouteListener("def", (toState, fromState) => {
 			$("#myDiv").empty();
 			$("select").material_select();
@@ -13,6 +14,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 			functions.handle_links(router);
 		});
 
+		// This route takes in initial conditions and provides a visual of the trajectory
 		router.addRouteListener("mod", (toState, fromState) => {
 			$("#myDiv").remove();
 			var myDiv = $("<div>").attr("id", "myDiv").css({
@@ -84,15 +86,18 @@ define(["jquery", "app/functions"], ($, functions) => {
 			for(var i = 0; i < parseInt(toState.params.iter); i++) {
 				// Inner Dynamics
 				if(innerMagneticField == 0) {
-					point = functions.plotting(point, math, a, b, iterX, iterY, outerMagneticField);
+					point = functions.plotting(point, math, a, b,
+						iterX, iterY, outerMagneticField);
 				}
 				else {
-					point = functions.magneticPlotting(point, math, a, b, iterX, iterY, innerScaling, outerMagneticField, 0);
+					point = functions.magneticPlotting(point, math, a, b,
+						iterX, iterY, innerScaling, outerMagneticField, 0);
 				}
 
 				// Outer Dynamics
 				if(outerMagneticField != 0) {
-					point = functions.magneticPlotting(point, math, a, b, iterX, iterY, outerScaling, outerMagneticField, 1);
+					point = functions.magneticPlotting(point, math, a, b,
+						iterX, iterY, outerScaling, outerMagneticField, 1);
 				}
 			}
 

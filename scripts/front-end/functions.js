@@ -1,8 +1,6 @@
 define(["jquery", "app/functions", "math"], ($, functions, math) => {
 	var exports = {};
 
-
-
 	// Handles all links on the page
 	exports.handle_links = function(router) {
 		$("a").on("click", function(e) {
@@ -31,7 +29,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 					alert("The number of iterations must be a positive integer!");
 				}
 				else {
-					alert("All of the requested information is necessary! Please fill in whatever data is missing and submit again.")
+					alert("All of the requested information is necessary! Please " +
+						"fill in whatever data is missing and submit again.");
 				}
 			}
 		});
@@ -70,19 +69,23 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 			secondComponent = C + ((D / math.abs(K)) * value1) + ((B / K) * (value2 - 1)),
 			firstVelocityComponent = (B * value2) + (D * math.sign(K) * value1),
 			secondVelocityComponent = (D * value2) - (B * math.sign(K) * value1);
-		return {x: firstComponent, y: secondComponent, v_x: firstVelocityComponent, v_y: secondVelocityComponent};
+		return {x: firstComponent, y: secondComponent,
+			v_x: firstVelocityComponent, v_y: secondVelocityComponent};
 	};
 
 
 
 	// Given a point and velocity this returns the point on the boundary along which a particle travels a straight line to reach
 	exports.evaluateTrajectory = function(x_1, x_2, v_1, v_2, xLength, yLength) {
-		var value1 = (math.pow(v_1, 2) / math.pow(xLength, 2)) + (math.pow(v_2, 2) / math.pow(yLength, 2)),
-			value2 = ((x_1 * v_1) / math.pow(xLength, 2)) + ((x_2 * v_2) / math.pow(yLength, 2)),
+		var value1 = (math.pow(v_1, 2) / math.pow(xLength, 2)) +
+				(math.pow(v_2, 2) / math.pow(yLength, 2)),
+			value2 = ((x_1 * v_1) / math.pow(xLength, 2)) +
+				((x_2 * v_2) / math.pow(yLength, 2)),
 			intersectionTime = (-2 * value2) / value1,
 			firstComponent = (intersectionTime * v_1) + x_1,
 			secondComponent = (intersectionTime * v_2) + x_2
-		return {x: firstComponent, y: secondComponent, v_x: v_1, v_y: v_2};
+		return {x: firstComponent, y: secondComponent,
+			v_x: v_1, v_y: v_2};
 	};
 
 
@@ -100,7 +103,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 			comp2 = (xLength / yLength) * x_2,
 			norm = exports.normalizeVector({x: -comp1, y: -comp2}),
 			tmp = 2 * exports.dotProduct({x: v_1, y: v_2}, norm);
-		return {x: x_1, y: x_2, v_x: v_1 - (tmp * norm.x), v_y: v_2 - (tmp * norm.y)};
+		return {x: x_1, y: x_2, v_x: v_1 - (tmp * norm.x),
+			v_y: v_2 - (tmp * norm.y)};
 	};
 
 
@@ -111,7 +115,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 			value2 = math.cos(math.abs(K) * t),
 			firstComponent = A + ((B / math.abs(K)) * value1) + ((D / K) * (1 - value2)),
 			secondComponent = C + ((D / math.abs(K)) * value1) + ((B / K) * (value2 - 1));
-		return math.pow(firstComponent / xLength, 2) + math.pow(secondComponent / yLength, 2) - 1;
+		return math.pow(firstComponent / xLength, 2) +
+			math.pow(secondComponent / yLength, 2) - 1;
 	};
 
 
@@ -128,7 +133,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 		var attempt = (interval[0] + interval[1]) / 2,
 			evaluation = func(attempt, A, B, C, D, K, xLength, yLength);
 		while(math.abs(evaluation) > err) {
-			if(func(interval[0], A, B, C, D, K, xLength, yLength) > 0 && func(interval[1], A, B, C, D, K, xLength, yLength) < 0) {
+			if(func(interval[0], A, B, C, D, K, xLength, yLength) > 0 &&
+				func(interval[1], A, B, C, D, K, xLength, yLength) < 0) {
 				if(evaluation > 0) {
 					interval[0] = attempt;
 				}
@@ -136,7 +142,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 					interval[1] = attempt;
 				}
 			}
-			else if(func(interval[0], A, B, C, D, K, xLength, yLength) < 0 && func(interval[1], A, B, C, D, K, xLength, yLength) > 0) {
+			else if(func(interval[0], A, B, C, D, K, xLength, yLength) < 0 &&
+				func(interval[1], A, B, C, D, K, xLength, yLength) > 0) {
 				if(evaluation > 0) {
 					interval[1] = attempt;
 				}
@@ -152,20 +159,25 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 
 
+	// Records the points attained along a non-magnetic trajectory inside the ellipse
 	exports.plotting = function(point, math, xLength, yLength, iterX, iterY, outerMagneticField) {
 		// This corresponds to the case of classical billiards where there are no magnetic fields
 		if(outerMagneticField == 0) {
-			point = exports.evaluateTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
+			point = exports.evaluateTrajectory(point.x, point.y,
+				point.v_x, point.v_y, xLength, yLength);
 			iterX.push(point.x);
 			iterY.push(point.y);
-			point = exports.reflectTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
+			point = exports.reflectTrajectory(point.x, point.y,
+				point.v_x, point.v_y, xLength, yLength);
 		}
 		// This corresponds to the case of inverse-magnetic billiards
 		else {
-			check = exports.evaluateTrajectoryStep(math.pow(10, -4), point.x, point.y, point.v_x, point.v_y)
+			check = exports.evaluateTrajectoryStep(math.pow(10, -4),
+				point.x, point.y, point.v_x, point.v_y)
 			if(exports.checkRegion(check, xLength, yLength, math) == 0) {
 				while(exports.checkRegion(point, xLength, yLength, math) == 0) {
-					point = exports.evaluateTrajectoryStep(math.pow(10, -4), point.x, point.y, point.v_x, point.v_y)
+					point = exports.evaluateTrajectoryStep(math.pow(10, -4),
+						point.x, point.y, point.v_x, point.v_y)
 					iterX.push(point.x);
 					iterY.push(point.y);
 				}
@@ -221,7 +233,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 		}
 		console.log(point);
 		if(outerMagneticField == 0 && ver == 0) {
-			point = exports.reflectTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
+			point = exports.reflectTrajectory(point.x, point.y,
+				point.v_x, point.v_y, xLength, yLength);
 		}
 		console.log(point);
 		return point;
