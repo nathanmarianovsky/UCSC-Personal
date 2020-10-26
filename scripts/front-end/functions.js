@@ -14,6 +14,7 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 						indicator = 0;
 					}
 				}
+				if(parseInt($("#variable8").val()) < 1) { indicator = 0; }
 				if(indicator == 1) {
 					router.navigate("mod", {
 						hor: $("#variable1").val(),
@@ -25,6 +26,9 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 						angle: $("#variable7").val(),
 						iter: $("#variable8").val(),
 					});
+				}
+				else if(parseInt($("#variable8").val()) < 1) {
+					alert("The number of iterations must be a positive integer!");
 				}
 				else {
 					alert("All of the requested information is necessary! Please fill in whatever data is missing and submit again.")

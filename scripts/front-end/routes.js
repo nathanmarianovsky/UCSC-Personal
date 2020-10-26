@@ -6,6 +6,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 	exports.add_listeners = (router, Plotly, math, Materialize) => {
 
 		router.addRouteListener("def", (toState, fromState) => {
+			$("#myDiv").empty();
 			$("select").material_select();
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
 			Materialize.updateTextFields();
@@ -13,6 +14,24 @@ define(["jquery", "app/functions"], ($, functions) => {
 		});
 
 		router.addRouteListener("mod", (toState, fromState) => {
+			$("#myDiv").remove();
+			var myDiv = $("<div>").attr("id", "myDiv").css({
+					"display": "flex",
+					"align-items": "center",
+					"justify-content": "center"
+				}),
+				wrapper = $("<div>").addClass("preloader-wrapper big active"),
+				spinner = $("<div>").addClass("spinner-layer spinner-red-only"),
+				clipper1 = $("<div>").addClass("circle-clipper left").append(
+					$("<div>").addClass("circle")),
+				patch = $("<div>").addClass("gap-patch").append(
+					$("<div>").addClass("circle")),
+				clipper2 = $("<div>").addClass("circle-clipper right").append(
+					$("<div>").addClass("circle"));
+			spinner.append(clipper1, patch, clipper2);
+			wrapper.append(spinner);
+			myDiv.append(wrapper);
+			$("main").append(myDiv);
 			$("select").material_select();
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
 
@@ -45,6 +64,16 @@ define(["jquery", "app/functions"], ($, functions) => {
 				v_x: velocity.x,
 				v_y: velocity.y
 			};
+
+			$("#variable1").val(a);
+			$("#variable2").val(b);
+			$("#variable3").val(innerMagneticField);
+			$("#variable4").val(outerMagneticField);
+			$("#variable5").val(toState.params.vel1);
+			$("#variable6").val(toState.params.vel2);
+			$("#variable7").val(toState.params.angle);
+			$("#variable8").val(toState.params.iter);
+			Materialize.updateTextFields();
 
 			// Collecting Data
 
@@ -104,28 +133,18 @@ define(["jquery", "app/functions"], ($, functions) => {
 	  			yaxis: {range: [-(max + scaleFactor), max + scaleFactor]}
 			};
 
-			$("#myDiv").empty();
-
-			$("#myDiv").css({
+			$("#myDiv").remove();
+			myDiv = $("<div>").attr("id", "myDiv").css({
 				"margin": "0 auto",
 				"width": "700px",
 				"height": "700px" 
 			});
-			Plotly.newPlot('myDiv', data, layout, {scrollZoom: true, responsive: true});
+			$("main").append(myDiv);
+			Plotly.newPlot("myDiv", data, layout, {scrollZoom: true, responsive: true});
 			$("#myDiv").children().first().children().first().children().first().css({
 				"border-style": "solid",
 				"border-radius": "100px"
 			});
-
-			$("#variable1").val(a);
-			$("#variable2").val(b);
-			$("#variable3").val(innerMagneticField);
-			$("#variable4").val(outerMagneticField);
-			$("#variable5").val(toState.params.vel1);
-			$("#variable6").val(toState.params.vel2);
-			$("#variable7").val(toState.params.angle);
-			$("#variable8").val(toState.params.iter);
-			Materialize.updateTextFields();
 
 			functions.handle_links(router);
 		});
