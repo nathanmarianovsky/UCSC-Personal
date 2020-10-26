@@ -76,6 +76,7 @@ main table a {
 .information {
 	background-color: white;
 	border-radius: 15px;
+	border: 0.8mm solid black;
 }
 
 .btn {
@@ -88,6 +89,28 @@ main table a {
  	justify-content: center;
 }
 
-.validate {
-	/*text-align: center;*/
+#infoForm {
+	/*margin-top: 30px;*/
+}
+
+.row {
+	margin-top: 30px;
+}
+
+#formTitle {
+    border: 0.6mm solid black;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+    height: 50px;
+    margin-top: -2px;
+    margin-left: -3px;
+    margin-right: -3px;
+    vertical-align: middle;
+    line-height: 45px;
+}
+
+.preloader-wrapper {
+	margin-top: 250px;
 }

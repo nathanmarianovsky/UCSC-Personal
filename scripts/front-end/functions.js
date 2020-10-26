@@ -1,20 +1,34 @@
 define(["jquery", "app/functions", "math"], ($, functions, math) => {
 	var exports = {};
 
+
+
+	// Handles all links on the page
 	exports.handle_links = function(router) {
 		$("a").on("click", function(e) {
 			e.preventDefault();
 			if($(this).attr("id") == "config") {
-				router.navigate("mod", {
-					hor: $("#variable1").val(),
-					ver: $("#variable2").val(),
-					inner: $("#variable3").val(),
-					outer: $("#variable4").val(),
-					vel1: $("#variable5").val(),
-					vel2: $("#variable6").val(),
-					angle: $("#variable7").val(),
-					iter: $("#variable8").val(),
-				});
+				var indicator = 1;
+				for(var i = 1; i < 9; i++) {
+					if(String($("#variable" + i).val()).length == 0) {
+						indicator = 0;
+					}
+				}
+				if(indicator == 1) {
+					router.navigate("mod", {
+						hor: $("#variable1").val(),
+						ver: $("#variable2").val(),
+						inner: $("#variable3").val(),
+						outer: $("#variable4").val(),
+						vel1: $("#variable5").val(),
+						vel2: $("#variable6").val(),
+						angle: $("#variable7").val(),
+						iter: $("#variable8").val(),
+					});
+				}
+				else {
+					alert("All of the requested information is necessary! Please fill in whatever data is missing and submit again.")
+				}
 			}
 		});
 	};
@@ -69,12 +83,14 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 
 
+	// Used to traverse an inner straight line step by step
 	exports.evaluateTrajectoryStep = function(t, x_1, x_2, v_1, v_2) {
 		return {x: x_1 + (t * v_1), y: x_2 + (t * v_2), v_x: v_1, v_y: v_2};
 	};
 
 
 
+	// Used to reflect a trajectory according to the law of reflection
 	exports.reflectTrajectory = function(x_1, x_2, v_1, v_2, xLength, yLength) {
 		var comp1 = (yLength / xLength) * x_1,
 			comp2 = (xLength / yLength) * x_2,
@@ -97,7 +113,7 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 
 	// Checks whether a given point is outside the ellipse
-	exports.checkRegion = function(info, xLength, yLength) {
+	exports.checkRegion = function(info, xLength, yLength, math) {
 		return math.pow(info.x / xLength, 2) + math.pow(info.y / yLength, 2) > 1 ? 1 : 0;
 	};
 
@@ -130,6 +146,34 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 		return attempt;
 	}
 
+
+
+	exports.plotting = function(point, math, xLength, yLength, iterX, iterY, outerMagneticField) {
+		// This corresponds to the case of classical billiards where there are no magnetic fields
+		if(outerMagneticField == 0) {
+			point = exports.evaluateTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
+			iterX.push(point.x);
+			iterY.push(point.y);
+			point = exports.reflectTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
+		}
+		// This corresponds to the case of inverse-magnetic billiards
+		else {
+			check = exports.evaluateTrajectoryStep(math.pow(10, -4), point.x, point.y, point.v_x, point.v_y)
+			if(exports.checkRegion(check, xLength, yLength, math) == 0) {
+				while(exports.checkRegion(point, xLength, yLength, math) == 0) {
+					point = exports.evaluateTrajectoryStep(math.pow(10, -4), point.x, point.y, point.v_x, point.v_y)
+					iterX.push(point.x);
+					iterY.push(point.y);
+				}
+			}
+			console.log("about to finish first");
+		}
+		return point;
+	};
+
+
+
+	// Records the points attained along a magnetic trajectory in the plane
 	exports.magneticPlotting = function(point, math, xLength, yLength, iterX, iterY, scaling, outerMagneticField, ver) {
 		// Generates the list of coefficients used for a single magnetic trajectory
 		var coefficientList = exports.evaluateCoefficients(point.x, point.y, point.v_x, point.v_y);
@@ -137,21 +181,23 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 		// Resets the start time for the magnetic trajectory
 		var param = 0;
 
-		// A point used to determine whether traveling in positive time lands in the exterior or interior of a region
-		var check = exports.evaluateMagneticTrajectory(math.pow(10, -4),
-			coefficientList[0], coefficientList[1], coefficientList[2],
-			coefficientList[3], scaling);
-		
 		// Keep count of the number of steps to break out when necessary
 		var steps = 0,
-			bound = math.pow(10, 4);
+			bound = math.pow(10, 4),
+			index = math.pow(10, -3.5);
+
+		// A point used to determine whether traveling in positive time lands in the exterior or interior of a region
+		var check = exports.evaluateMagneticTrajectory(index,
+			coefficientList[0], coefficientList[1], coefficientList[2],
+			coefficientList[3], scaling);
 
 		// Evaluate outer trajectory and add to the list
-		if(exports.checkRegion(check, xLength, yLength) == ver) {
-			while(exports.checkRegion(point, xLength, yLength) == ver) {
+		if(exports.checkRegion(check, xLength, yLength, math) == ver) {
+			point = check;
+			while(exports.checkRegion(point, xLength, yLength, math) == ver) {
 				if(steps >= bound) { break; }
 				else { steps++; }
-				param += math.pow(10, -4);
+				param += index;
 				point = exports.evaluateMagneticTrajectory(param, coefficientList[0],
 					coefficientList[1], coefficientList[2], coefficientList[3], scaling);
 				iterX.push(point.x);
@@ -159,19 +205,21 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 			}
 		}
 		else {
-			while(exports.checkRegion(point, xLength, yLength) == ver) {
+			while(exports.checkRegion(point, xLength, yLength, math) == ver) {
 				if(steps >= bound) { break; }
 				else { steps++; }
-				param -= math.pow(10, -4);
+				param -= index;
 				point = exports.evaluateMagneticTrajectory(param, coefficientList[0],
 					coefficientList[1], coefficientList[2], coefficientList[3], scaling);
 				iterX.push(point.x);
 				iterY.push(point.y);
 			}
 		}
+		console.log(point);
 		if(outerMagneticField == 0 && ver == 0) {
-			point = exports.reflectTrajectory(point.x, point.y, point.v_x, point.v_y, a, b);
+			point = exports.reflectTrajectory(point.x, point.y, point.v_x, point.v_y, xLength, yLength);
 		}
+		console.log(point);
 		return point;
 	};
 
