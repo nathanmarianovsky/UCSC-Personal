@@ -6,6 +6,10 @@ exports.add_routes = app => {
 	app.get("/", (request, response) => {
 		response.sendFile("./client/template.html", { "root": "./" });
 	});
+
+	app.get("/*", (request, response) => {
+		response.sendFile("./client/template.html", { "root": "./" });
+	});
 };
 
 module.exports = exports;

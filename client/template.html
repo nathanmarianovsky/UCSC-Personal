@@ -8,6 +8,7 @@
 		<meta name=viewport content="initial-scale=1, width=device-width">
 		<title>Billiard Dynamics</title>
 		<script data-main="/scripts/front-end/config" type="text/javascript" async src="/node_modules/requirejs/require.js"></script>
+		<link rel="stylesheet preconnect" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 		<!-- <script src="./node_modules/mathjs/dist/math.min.js" type="text/javascript"></script> -->
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
@@ -27,33 +28,61 @@
 			</nav>
 		</header>
 		<main>
-		<!-- <div class="message">
-			<div class="message_content">
-				<b>Horizontal Axis of Ellipse:<b>
-				<form action="#">
-				    <p class="range-field">
-				    	<input id="horizontal" type="range" min="0" max="20" value="2" />
-				    </p>
-				</form>
-			</div>
-		</div> -->
-
-		<!-- <div class="message">
-			<div class="message_content">
-				<b>Vertical Axis of Ellipse:<b>
-				<form action="#">
-				    <p class="range-field">
-				    	<input id="vertical" type="range" min="0" max="20" value="1" />
-				    </p>
-				</form>
-			</div>
-		</div> -->
+		<div class="row information">
+		    <form class="col s12">
+		      	<div class="row">
+		        	<div class="input-field col s3">
+		          		<input id="variable1" type="text" class="validate center">
+		          		<label for="variable1">Horizontal Axis of Ellipse</label>
+		          		<span class="helper-text" data-error="Doesn't Seem Like a Number" data-success="Looks Good!">Please Input a Number</span>
+		        	</div>
+		        	<div class="input-field col s3">
+		          		<input id="variable2" type="text" class="validate center">
+		          		<label for="variable2">Vertical Axis of Ellipse</label>
+		        	</div>
+		        	<div class="input-field col s4">
+		          		<input id="variable7" type="text" class="validate center">
+		          		<label for="variable7">Starting Point (Angle in Degrees)</label>
+		        	</div>
+		        	<div class="input-field col s2">
+		          		<input id="variable8" type="text" class="validate center">
+		          		<label for="variable8">Iterations</label>
+		        	</div>
+		      	</div>
+		      	<div class="row">
+		        	<div class="input-field col s3">
+		          		<input id="variable5" type="text" class="validate center">
+		          		<label for="variable5">Velocity (X Direction)</label>
+		        	</div>
+		        	<div class="input-field col s3">
+		          		<input id="variable6" type="text" class="validate center">
+		          		<label for="variable6">Velocity (Y Direction)</label>
+		        	</div>
+		        	<div class="input-field col s3">
+		          		<input id="variable3" type="text" class="validate center">
+		          		<label for="variable3">Inner Magnetic Field</label>
+		        	</div>
+		        	<div class="input-field col s3">
+		          		<input id="variable4" type="text" class="validate center">
+		          		<label for="variable4">Outer Magnetic Field</label>
+		        	</div>
+		      	</div>
+		      	<div class="row">
+		        	<!-- <div class="input-field col s4"></div> -->
+		        	<div class="input-field col s12" id="configuration">
+		          		<a id="config" class="btn waves-effect waves-light blue">Configure
+					    	<i class="material-icons right">send</i>
+					  	</a>
+		        	</div>
+		      	</div>
+		      	
+	    	</form>
+		</div>
 	
-		<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+		<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
 		<style type="text/css">
 			#myDiv {
-				margin-left: 25%;
-				margin-right: 25%;
+				margin: 0 auto;
 				width: 700px;
 				height: 700px; 
 			}

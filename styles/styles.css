@@ -72,3 +72,22 @@ main table a {
 	/*border-style: solid;*/
 	/*border-radius: 5px;*/
 }
+
+.information {
+	background-color: white;
+	border-radius: 15px;
+}
+
+.btn {
+	border-radius: 15px;
+	/*left: 44%;*/
+}
+
+#configuration {
+	display: flex;
+ 	justify-content: center;
+}
+
+.validate {
+	/*text-align: center;*/
+}
