@@ -2,7 +2,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 	var exports = {};
 
 	// Adds all necessary front-end listeners
-	exports.add_listeners = (router, Plotly, math, Materialize, MathJax) => {
+	exports.add_listeners = (router, Plotly, math, Materialize) => {
 
 		// Default route is designed to simply be a data collector
 		router.addRouteListener("def", (toState, fromState) => {

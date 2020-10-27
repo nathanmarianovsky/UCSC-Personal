@@ -51,6 +51,12 @@ main table a {
 	background-color: white;
 }
 
+.notes_table tbody tr td {
+	text-align: left !important;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
 .head_click tr th {
 	cursor: pointer;
 	font-weight: normal;
@@ -106,4 +112,12 @@ main table a {
 
 #source {
 	cursor: pointer;
+}
+
+.latex_equation {
+	position: relative;
+	text-align: center;
+	font-family: "Georgia";
+	padding: 20px 0 20px 0;
+	font-size: 15px;
 }

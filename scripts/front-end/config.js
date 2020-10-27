@@ -6,7 +6,7 @@ require.config({
         jquery: "/node_modules/jquery/dist/jquery.min",
         materialize: "/bower_components/materializecss-amd/dist/materialize.amd.min",
         router5: "/node_modules/router5/dist/amd/router5.min",
-        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?...",
+        mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML",
         math: "./node_modules/mathjs/dist/math.min",
         Plotly: "https://cdn.plot.ly/plotly-latest.min"
     },
