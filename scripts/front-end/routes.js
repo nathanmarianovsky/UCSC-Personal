@@ -1,21 +1,22 @@
 define(["jquery", "app/functions"], ($, functions) => {
 	var exports = {};
 
-	// console.log(math);
-
-	exports.add_listeners = (router, Plotly, math, Materialize) => {
+	// Adds all necessary front-end listeners
+	exports.add_listeners = (router, Plotly, math, Materialize, MathJax) => {
 
 		// Default route is designed to simply be a data collector
 		router.addRouteListener("def", (toState, fromState) => {
 			$("#myDiv").empty();
 			$("select").material_select();
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
 			Materialize.updateTextFields();
 			functions.handle_links(router);
+			functions.messageHandler(0);
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub, "main"]);
 		});
 
 		// This route takes in initial conditions and provides a visual of the trajectory
 		router.addRouteListener("mod", (toState, fromState) => {
+			functions.messageHandler(1);
 			$("#myDiv").remove();
 			var myDiv = $("<div>").attr("id", "myDiv").css({
 					"display": "flex",
@@ -35,7 +36,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 			myDiv.append(wrapper);
 			$("main").append(myDiv);
 			$("select").material_select();
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
+			MathJax.Hub.Queue(["Typeset", MathJax.Hub, "main"]);
 
 			// Initial Conditions
 			var theta = 0,
@@ -67,6 +68,7 @@ define(["jquery", "app/functions"], ($, functions) => {
 				v_y: velocity.y
 			};
 
+			// Prefill the table with the current data
 			$("#variable1").val(a);
 			$("#variable2").val(b);
 			$("#variable3").val(innerMagneticField);

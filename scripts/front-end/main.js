@@ -10,7 +10,7 @@ define(["jquery", "materialize", "router5", "mathjax", "math", "Plotly", "app/ro
 		],{
 			defaultRoute: "def"
 		});
-		routes.add_listeners(router, Plotly, math, Materialize);
+		routes.add_listeners(router, Plotly, math, Materialize, MathJax);
 		router.start();
 	});
 });

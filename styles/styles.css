@@ -32,11 +32,6 @@ main {
 	margin-top: -5px;
 }
 
-main table {
-	border: 0.8mm solid black;
-	background-color: white;
-}
-
 main .table_header table {
 	border-bottom: 0mm solid black;
 }
@@ -51,10 +46,15 @@ main table a {
 
 .notes_table {
 	margin: 30px auto 30px auto;
+	border-radius: 15px;
+	border: 0.8mm solid black;
+	background-color: white;
 }
 
-.head_click {
+.head_click tr th {
 	cursor: pointer;
+	font-weight: normal;
+	font-size: 20px;
 }
 
 #info_table {
@@ -102,4 +102,8 @@ main table a {
 
 .preloader-wrapper {
 	margin-top: 250px;
+}
+
+#source {
+	cursor: pointer;
 }

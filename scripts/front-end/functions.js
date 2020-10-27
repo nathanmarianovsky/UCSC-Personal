@@ -5,7 +5,13 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 	exports.handle_links = function(router) {
 		$("a").on("click", function(e) {
 			e.preventDefault();
-			if($(this).attr("id") == "config") {
+			var id = $(this).attr("id");
+			if(id == "source") {
+				console.log("here");
+				window.open("https://github.com/nathanmarianovsky/" +
+					"UCSC-Personal/tree/Billiard-Dynamics", "_blank");
+			}
+			else if(id == "config") {
 				var indicator = 1;
 				for(var i = 1; i < 9; i++) {
 					if(String($("#variable" + i).val()).length == 0) {
@@ -34,6 +40,18 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 				}
 			}
 		});
+	};
+
+
+
+	exports.messageHandler = function(closed) {
+		if(closed == 1) {
+			$(".notes_table > tbody > tr").hide();
+		}
+		$(".notes_table > thead > tr").click(function() {
+       		var obj = $(this).closest(".notes_table").find("tbody > tr");
+       		obj.slideToggle();
+    	});
 	};
 
 
@@ -182,7 +200,6 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 					iterY.push(point.y);
 				}
 			}
-			console.log("about to finish first");
 		}
 		return point;
 	};
@@ -231,12 +248,10 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 				iterY.push(point.y);
 			}
 		}
-		console.log(point);
 		if(outerMagneticField == 0 && ver == 0) {
 			point = exports.reflectTrajectory(point.x, point.y,
 				point.v_x, point.v_y, xLength, yLength);
 		}
-		console.log(point);
 		return point;
 	};
 
