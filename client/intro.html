@@ -1,0 +1,31 @@
+<div id="intro">
+	<table class="centered notes_table">
+        <thead class="head_click">
+          	<tr>
+              	<th>Introduction</th>
+          	</tr>
+        </thead>
+        <tbody>
+        	<tr>
+            	<td>
+            		This website serves to provide vivid visualizations
+            		tied to the dynamics of billiards associated to an
+            		ellipse in the plane. Formally the goal is to study the trajectories an electron (or a billiard ball) traverses with 
+            		different initial conditions (the position and velocity) and varying strengths of the magnetic field(s). By setting 
+            		<div class="latex_equation">
+            			$\Omega = \Big\{ (x,y) \in \mathbb{R}^2 \hspace{.1cm} \Big| \hspace{.1cm} \frac{x^2}{a^2} + \frac{y^2}{b^2} < 1 \Big\} \hspace{.3cm} \text{with} \hspace{.3cm} a,b \in \mathbb{R}$
+            		</div>
+            		and introducing the magnetic fields:
+            		<div class="latex_equation">
+            			$\mathbf{B} = B_\Omega(\mathbf{x})\mathbf{\hat{k}} \hspace{.3cm} \text{where} \hspace{.3cm} B_\Omega(q) = \begin{cases} B_1, & \mathbf{x} \in \Omega \\ B_2, & \mathbf{x} \in \mathbb{R}^2 \setminus \Omega \end{cases} \hspace{.3cm} \text{with} \hspace{.3cm} B_1, B_2 \in \mathbb{R}$
+            		</div>
+            		we can conclude under classical mechanics that with mass $m > 0$ and charge $q > 0$ (where the sign has already been incorporated) the electron must satisfy the following law of motion govered by the Lorentz force:
+            		<div class="latex_equation">
+            			$\mathbf{\ddot{x}} = \begin{cases} \frac{qB_1}{m}\mathbb{J}\mathbf{\dot{x}}, & \mathbf{x} \in \Omega \\ \frac{qB_2}{m}\mathbb{J}\mathbf{\dot{x}}, & \mathbf{x} \in \mathbb{R}^2 \setminus \Omega \end{cases} \hspace{.3cm} \text{where} \hspace{.3cm} \mathbb{J} = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$
+            		</div>
+            		Most trivially we notice if $B_i = 0$ (for $i = 1,2$) then $\mathbf{\ddot{x}} = 0$ and consequently the electron traverses along a straight line. On the other hand if we are dealing with $B_i \neq 0$ then by solving the system of differential equations above we come to see that under the influence of a magnetic field perpendicular to the plane an electron will traverse in circular trajectories. Now if $B_1,B_2 < \infty$ the electron is allowed to enter and leave $\Omega$ by crossing the boundary, whereas the condition that $B_i = \infty$ imposes the restriction that the electron is not allowed to enter $\Omega$ or leave $\Omega$ if $i = 1$ or $i = 2$, respectively. With either region blocked off we instead allow the electron to bounce off of the boundary according to the law of reflection.
+            	</td>
+          	</tr>
+        </tbody>
+    </table>
+</div>

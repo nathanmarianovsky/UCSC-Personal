@@ -6,6 +6,7 @@ define(["jquery", "materialize", "router5", "mathjax", "math", "Plotly", "app/ro
 		});
 		var router = new router5.Router5([
 			new router5.RouteNode("def", "/"),
+			new router5.RouteNode("example", "/example?:num"),
 			new router5.RouteNode("mod", "/mag?:hor&:ver&:inner&:outer&:vel1&:vel2&:angle&:iter")
 		],{
 			defaultRoute: "def"

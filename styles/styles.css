@@ -110,7 +110,7 @@ main table a {
 	margin-top: 250px;
 }
 
-#source {
+.links {
 	cursor: pointer;
 }
 
@@ -120,4 +120,42 @@ main table a {
 	font-family: "Georgia";
 	padding: 20px 0 20px 0;
 	font-size: 15px;
+}
+
+.switch {
+	padding-left: 15px;
+}
+
+.controller {
+	padding-left: 15px;
+}
+
+#secondController {
+	padding-top: 25px;
+    padding-left: 12px;
+}
+
+.tabs {
+	background-color: #003333;
+}
+
+.tabs .tab {
+	width: 10%;
+}
+
+.tabs .tab a {
+	color: white;
+	cursor: pointer;
+}
+
+.tabs .tab a:hover {
+	color: #9BC2C2;
+}
+
+#intro {
+	padding-top: 30px;
+}
+
+.tabs .indicator {
+	background-color: #CFE4E4;
 }

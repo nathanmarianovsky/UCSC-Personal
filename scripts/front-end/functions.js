@@ -11,20 +11,49 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 				window.open("https://github.com/nathanmarianovsky/" +
 					"UCSC-Personal/tree/Billiard-Dynamics", "_blank");
 			}
+			else if(id == "home") {
+				router.navigate("def");
+				for(var i = 1; i < 9; i++) {
+					$("#variable" + i).val("");
+				}
+				$("#innerInf").attr("checked", false);
+				$("#outerInf").attr("checked", false);
+			}
+			else if(id.split("example")[0] == "") {
+				router.navigate("example", {num: id.split("example")[1]});
+			}
 			else if(id == "config") {
-				var indicator = 1;
+				var indicator = 1,
+					mag1 = 0,
+					mag2 = 0;
 				for(var i = 1; i < 9; i++) {
 					if(String($("#variable" + i).val()).length == 0) {
-						indicator = 0;
+						if(i == 3) {
+							if(!$("#innerInf").is(":checked")) {
+								indicator = 0;
+							}
+						}
+						else if(i == 4) {
+							if(!$("#outerInf").is(":checked")) {
+								indicator = 0;
+							}
+						}
+						else {
+							indicator = 0;
+						}
 					}
 				}
 				if(parseInt($("#variable8").val()) < 1) { indicator = 0; }
 				if(indicator == 1) {
+					$("#innerInf").is(":checked") == true ? mag1 = "Inf"
+						: mag1 = $("#variable3").val();
+					$("#outerInf").is(":checked") == true ? mag2 = "Inf"
+						: mag2 = $("#variable4").val();
 					router.navigate("mod", {
 						hor: $("#variable1").val(),
 						ver: $("#variable2").val(),
-						inner: $("#variable3").val(),
-						outer: $("#variable4").val(),
+						inner: mag1,
+						outer: mag2,
 						vel1: $("#variable5").val(),
 						vel2: $("#variable6").val(),
 						angle: $("#variable7").val(),
@@ -178,28 +207,77 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 
 	// Records the points attained along a non-magnetic trajectory inside the ellipse
-	exports.plotting = function(point, math, xLength, yLength, iterX, iterY, outerMagneticField) {
-		// This corresponds to the case of classical billiards where there are no magnetic fields
-		if(outerMagneticField == 0) {
-			point = exports.evaluateTrajectory(point.x, point.y,
-				point.v_x, point.v_y, xLength, yLength);
-			iterX.push(point.x);
-			iterY.push(point.y);
-			point = exports.reflectTrajectory(point.x, point.y,
-				point.v_x, point.v_y, xLength, yLength);
-		}
-		// This corresponds to the case of inverse-magnetic billiards
-		else {
-			check = exports.evaluateTrajectoryStep(math.pow(10, -4),
-				point.x, point.y, point.v_x, point.v_y)
-			if(exports.checkRegion(check, xLength, yLength, math) == 0) {
-				while(exports.checkRegion(point, xLength, yLength, math) == 0) {
-					point = exports.evaluateTrajectoryStep(math.pow(10, -4),
-						point.x, point.y, point.v_x, point.v_y)
-					iterX.push(point.x);
-					iterY.push(point.y);
+	exports.plotting = function(point, math, xLength, yLength, iterX, iterY, innerMagneticField, outerMagneticField, scale, ver) {
+		if(ver == 0) {
+			if(outerMagneticField == Infinity) {
+				point = exports.evaluateTrajectory(point.x, point.y,
+					point.v_x, point.v_y, xLength, yLength);
+				iterX.push(point.x);
+				iterY.push(point.y);
+				point = exports.reflectTrajectory(point.x, point.y,
+					point.v_x, point.v_y, xLength, yLength);
+			}
+			else {
+				var check = exports.evaluateTrajectoryStep(math.pow(10, -4),
+					point.x, point.y, point.v_x, point.v_y);
+				if(exports.checkRegion(check, xLength, yLength, math) == 0) {
+					while(exports.checkRegion(point, xLength, yLength, math) == 0) {
+						point = exports.evaluateTrajectoryStep(math.pow(10, -4),
+							point.x, point.y, point.v_x, point.v_y);
+						iterX.push(point.x);
+						iterY.push(point.y);
+					}
 				}
 			}
+		}
+		else {
+			var pointIter = {
+				x: point.x,
+				y: point.y,
+				v_x: point.v_x,
+				v_y: point.v_y
+			};
+			var max = math.max(xLength, yLength);
+			var check = exports.evaluateTrajectoryStep(math.pow(10, -2),
+					pointIter.x, pointIter.y, pointIter.v_x, pointIter.v_y);
+			if(exports.checkRegion(check, xLength, yLength, math) == 0) {
+				pointIter.v_x *= -1;
+				pointIter.v_y *= -1;
+			}
+			while((-(max + scale) <= pointIter.x) && (pointIter.x <= max + scale)
+				&& (-(max + scale) <= pointIter.y) && (pointIter.y <= max + scale)) {
+				pointIter = exports.evaluateTrajectoryStep(math.pow(10, -4),
+					pointIter.x, pointIter.y, pointIter.v_x, pointIter.v_y);
+				iterX.push(pointIter.x);
+				iterY.push(pointIter.y);
+			}
+			if(pointIter.y <= -(max + scale) || pointIter.y >= max + scale) {
+				pointIter.y = pointIter.y * -1;
+				pointIter.x += (2 * pointIter.y * (pointIter.v_x / pointIter.v_y));
+				if(pointIter.x < -(max + scale)) {
+					while(pointIter.x < -(max + scale)) { pointIter.x += math.pow(10, -3); }
+				}
+				else if(pointIter.x > max + scale) { pointIter.x -= math.pow(10, -3); }
+			}
+			else if(pointIter.x <= -(max + scale) || pointIter.x >= max + scale) {
+				pointIter.x *= -1;
+				pointIter.y += (2 * pointIter.x * (pointIter.v_y / pointIter.v_x));
+				if(pointIter.y < -(max + scale)) {
+					while(pointIter.y < -(max + scale)) { pointIter.y += math.pow(10, -3); }
+				}
+				else if(pointIter.y > max + scale) { pointIter.y -= math.pow(10, -3); }
+			}
+			iterX.push(null);
+			iterY.push(null);
+			iterX.push(pointIter.x);
+			iterY.push(pointIter.y);
+			while(exports.checkRegion(pointIter, xLength, yLength, math) == 1) {
+				pointIter = exports.evaluateTrajectoryStep(math.pow(10, -4),
+					pointIter.x, pointIter.y, pointIter.v_x, pointIter.v_y);
+				iterX.push(pointIter.x);
+				iterY.push(pointIter.y);
+			}
+			point = pointIter;
 		}
 		return point;
 	};
@@ -207,7 +285,7 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 
 	// Records the points attained along a magnetic trajectory in the plane
-	exports.magneticPlotting = function(point, math, xLength, yLength, iterX, iterY, scaling, outerMagneticField, ver) {
+	exports.magneticPlotting = function(point, math, xLength, yLength, iterX, iterY, scaling, innerMagneticField, outerMagneticField, ver) {
 		// Generates the list of coefficients used for a single magnetic trajectory
 		var coefficientList = exports.evaluateCoefficients(point.x, point.y, point.v_x, point.v_y);
 
@@ -216,8 +294,8 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 
 		// Keep count of the number of steps to break out when necessary
 		var steps = 0,
-			bound = math.pow(10, 4),
-			index = math.pow(10, -3.5);
+			bound = math.pow(10, 6),
+			index = math.pow(10, -3);
 
 		// A point used to determine whether traveling in positive time lands in the exterior or interior of a region
 		var check = exports.evaluateMagneticTrajectory(index,
@@ -248,7 +326,11 @@ define(["jquery", "app/functions", "math"], ($, functions, math) => {
 				iterY.push(point.y);
 			}
 		}
-		if(outerMagneticField == 0 && ver == 0) {
+		if(outerMagneticField == Infinity && ver == 0) {
+			point = exports.reflectTrajectory(point.x, point.y,
+				point.v_x, point.v_y, xLength, yLength);
+		}
+		if(innerMagneticField == Infinity && ver == 1) {
 			point = exports.reflectTrajectory(point.x, point.y,
 				point.v_x, point.v_y, xLength, yLength);
 		}
