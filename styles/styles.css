@@ -1,6 +1,8 @@
 /*------------------------------- All Styles Pertaining to the Navigation Bar -------------------------------*/
 nav {
-	background-color: #003333;
+	background-color: #d14e61;
+	height: 42px;
+	opacity: 54%;
 }
 
 .nav-wrapper .brand-logo {
@@ -8,14 +10,42 @@ nav {
 }
 
 /*------------------------------- All Styles Pertaining to the Main Body -------------------------------*/
+body * {
+	max-height: 1000000em;
+	overflow: hidden;
+}
+
+html {
+	height: 100%;
+	overflow:  hidden;
+}
+
 body {
-	background-color: #669999;
+	/*background-image: url("/client/background.svg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;*/
+  	height: 100%;
+}
+
+header {
+	background: black;
 }
 
 main {
-	color: black;
-	width: 70%;
-	margin: 30px auto 30px auto;
+	/*color: black;*/
+	/*width: 70%;*/
+	/*margin: 30px auto 30px auto;*/
+	/*padding-top: 100px;*/
+	/*background-image: url("/client/background.svg");*/
+	/*background-repeat: no-repeat;*/
+	/*background-attachment: fixed;*/
+  	height: 96.8%;
+	/*background-size: 100% auto;*/
+}
+
+.polygon {
+	
 }
 
 .message {

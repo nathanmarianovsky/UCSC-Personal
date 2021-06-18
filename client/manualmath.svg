@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16.861044mm"
+   height="20.055904mm"
+   viewBox="0 0 59.743856 71.064228"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="manmath.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.0000002"
+     inkscape:cx="-29.333417"
+     inkscape:cy="15.676271"
+     inkscape:document-units="px"
+     inkscape:current-layer="g3377"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-midpoints="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-to-guides="true"
+     showguides="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="751"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline"
+     transform="translate(-0.49021075,0.05052277)">
+    <path
+       style="fill:#9dde67"
+       d="M 30.20991,52.186987 C 24.68838,42.610117 16.04525,27.615027 11.00296,18.864577 5.9606708,10.114137 1.4434807,2.2785072 0.96476071,1.4520772 l -0.87040996,-1.50259997 20.09774925,0.0142 20.09775,0.0142 10.01257,17.39830977 c 5.50691,9.56908 10.00388,17.55742 9.99325,17.75187 -0.0259,0.47404 -19.59799,34.45798 -19.84944,34.46553 -0.10845,0.003 -4.71479,-7.8297 -10.23632,-17.40658 z"
+       id="path3525"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g3377">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3527"
+         d="M 35.99455,61.862187 C 28.59065,49.172727 0.82053075,0.94257721 0.62568075,0.43479723 c -0.15651,-0.40784 2.97758005,-0.48532 19.62994925,-0.48532 l 19.81619,0 1.92065,3.27035997 c 1.67345,2.84947 14.45458,25.2081998 17.2383,30.1558998 l 1.0033,1.78323 -5.84979,10.23759 c -7.53998,13.19552 -13.55321,23.44737 -13.86675,23.64115 -0.13594,0.084 -2.17128,-3.14497 -4.52298,-7.17552 z"
+         style="fill:#54ffa9" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3529"
+         d="M 0.90516071,70.218216 C 1.1333807,69.780687 5.4608608,62.051447 10.52178,53.042117 c 7.58716,-13.50649 9.26333,-16.267 9.55307,-15.73313 0.19328,0.35611 4.43654,7.72739 9.42947,16.3806 4.99294,8.65322 9.26897,16.0911 9.5023,16.528629 l 0.42422,0.79549 -19.47031,0 -19.47031925,0 0.41494996,-0.79549 z"
+         style="fill:#00b7ff;fill-opacity:1" />
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3551"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
+         id="flowRegion3553"><rect
+           id="rect3555"
+           width="26.870058"
+           height="43.133514"
+           x="409.41483"
+           y="184.74219" /></flowRegion><flowPara
+         id="flowPara3557" /></flowRoot>  </g>
+</svg>
