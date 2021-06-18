@@ -9,6 +9,10 @@ nav {
 	font-size: 25px;
 }
 
+.nav-wrapper a, .nav-wrapper ul {
+	line-height: 42px;
+}
+
 /*------------------------------- All Styles Pertaining to the Main Body -------------------------------*/
 body * {
 	max-height: 1000000em;
@@ -20,80 +24,10 @@ html {
 	overflow:  hidden;
 }
 
-body {
-	/*background-image: url("/client/background.svg");
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;*/
-  	height: 100%;
-}
-
 header {
 	background: black;
 }
 
-main {
-	/*color: black;*/
-	/*width: 70%;*/
-	/*margin: 30px auto 30px auto;*/
-	/*padding-top: 100px;*/
-	/*background-image: url("/client/background.svg");*/
-	/*background-repeat: no-repeat;*/
-	/*background-attachment: fixed;*/
-  	height: 96.8%;
-	/*background-size: 100% auto;*/
-}
-
-.polygon {
-	
-}
-
-.message {
-	margin: 30px auto 30px auto;
-    background-color: white;
-    border: 0.8mm solid black;
-}
-
-.message_content {
-	margin: 20px;
-}
-
-#signature {
-	margin-top: -5px;
-}
-
-main table {
-	border: 0.8mm solid black;
-	background-color: white;
-}
-
-main .table_header table {
-	border-bottom: 0mm solid black;
-}
-
-main .table_body table {
-	border-top: 0mm solid black;
-}
-
-main table a {
-	color: inherit;
-}
-
-.notes_table {
-	/*display: none;*/
-	margin: 30px auto 30px auto;
-}
-
-.head_click {
-	cursor: pointer;
-}
-
-#info_table {
-	width: 70%;
-	margin: 30px auto 30px auto;
-}
-
-#open_source {
-	padding-left: 4px;
-	color: inherit;
+main, body {
+  	height: 100%;
 }

@@ -204,9 +204,7 @@ define(["jquery", "math"], ($, Math) => {
 				// // 	topArr = ["61.5", "59.5", "57.3"],
 				// // 	collection = [];
 
-				// // $("main").append($("<div/>").append($("<img>").attr("src", "/client/hex.svg")));
 				var div = $("<div>").attr("id", "container").css("height", "inherit");
-				// var map = $("<map>").attr("name", "border");
 
 				for(var i = 0; i < sizeArr.length; i++) {
 					var img = $("<img>").attr({
@@ -220,20 +218,6 @@ define(["jquery", "math"], ($, Math) => {
 							"z-index": 1
 						}).hide();
 					if(i == sizeArr.length - 1) {
-						// img.attr("usemap", "#border");
-						var x = centerx * horArr[i],
-							y = centery * verArr[i],
-							w = sizeArr[i],
-							h = (13 / 15) * w,
-							k = (75.371 / 150) * w,
-							l = (w - k) / 2;
-						// var arr = [x + l, y, x + l + k, y, x + w, y - (h / 2), x + l + k, y - h, x + l, y - h, x, y - (h / 2)];
-						// arr = arr.map(num => Math.round(num * Math.pow(10, 4)) / Math.pow(10, 4));
-						// var area = $("<area>").attr({
-						// 	"shape": "poly",
-						// 	"coords": arr.join(),
-						// });
-						// map.append(area);
 						var link = $("<a>").attr({
 							"href": "https://www.github.com/nathanmarianovsky",
 							"target": "_blank",
@@ -246,13 +230,23 @@ define(["jquery", "math"], ($, Math) => {
 							"top": (centery * (verArr[i] + .035)) + "px",
 							"z-index": 3
 						}).hide();
-						// var link = $("<a>").attr({
-						// 	"href": "https://www.github.com",
-						// 	"target": "_blank",
-						// 	"rel": "noopener noreferrer"
-						// });
-						// var link = $("<div>");
 						link.append(github);
+						collection.push(img, link);
+					}
+					else if(i == sizeArr.length - 2) {
+						var link = $("<a>").attr({
+							"href": "http://www.manualmath.com",
+							"target": "_blank",
+							"rel": "noopener noreferrer"
+						});
+						var manualmath = $("<img>").attr("src", "/client/manualmath.svg").css({
+							"position": "absolute",
+							"width": (sizeArr[i] / 2) + "px",
+							"left": (centerx * (horArr[i] + .055)) + "px",
+							"top": (centery * (verArr[i] + .045)) + "px",
+							"z-index": 3
+						}).hide();
+						link.append(manualmath);
 						collection.push(img, link);
 					}
 					else {
@@ -279,13 +273,14 @@ define(["jquery", "math"], ($, Math) => {
 						// console.log("hello");
 						// console.log(param);
 						div.append(param);
-						if(index == 18) {
-							// console.log(param.children());
-							param.children().show("slow");
-						}
-						else {
+						// if(index == 18) {
+						// 	// console.log(param.children());
+						// 	param.children().show("slow");
+						// }
+						// else {
 							param.show("slow");
-						}
+							param.children().show("slow");
+						// }
 					}, 100 * i, collection[i], i);
 
 					// sleep(1000).then(() => {$("#container").append(collection[i]);});
