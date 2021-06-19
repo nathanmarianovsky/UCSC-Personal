@@ -3,12 +3,34 @@
 	    <div class="nav-wrapper">
 	    	<a class="brand-logo center">Nathan Marianovsky</a>
 	    	<ul id="nav-mobile" class="right hide-on-med-and-down">
-		        <li><a href="badges.html">About</a></li>
-        		<li><a href="collapsible.html">Contact</a></li>
+		        <li><a class="modal-trigger" href="#about">About</a></li>
+        		<li><a class="modal-trigger" href="#contact">Contact</a></li>
 	      	</ul>
     	</div>
 	</nav>
 </header>
 <main>
+	<div id="about" class="modal">
+	    <div class="modal-content">
+      		<h4>About</h4>
+      		<p>
+      			Welcome to my personal website! My name is Nathan Marianovsky, currently a Ph.D candidate at UCSC working with Richard Montgomery on billiard dynamics. Having graduated from the NYU Polytechnic School of Engineering with a BSc in math alongside a minor in applied physics I gravitated strongly towards mathematical physics during my graduate years but have a broad range of interests such as differential geometry, graph theory, differential topology, algebraic topology, Lie groups, quantum mechanics, symplectic geometry, etc... 
+      			<br><br>
+      			Over the years I have been working on a broad of projects and as such have designed this website to serve the mere purpose of being a central location to showcase everything. In combination to my coding projects I also provide links to where all of my notes written for recitations/sections and lectures over the years can be found. I open-source all of my code and allow for the free sharing of all of my material with the exception that it not be utilized for profiting. 
+      		</p>
+	    </div>
+	    <div class="modal-footer">
+      		<a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+    	</div>
+  	</div>
+	<div id="contact" class="modal">
+	    <div class="modal-content">
+      		<h4>Contact</h4>
+      		<p>If you have any need to get in contact feel free to shoot an email to <a class="email" href="mailto:nathanmarianovsky@manualmath.com">nathanmarianovsky@manualmath.com</a> or <a class="email" href="mailto:nmariano@ucsc.edu">nmariano@ucsc.edu</a>.</p>
+	    </div>
+	    <div class="modal-footer">
+      		<a class="modal-close waves-effect waves-green btn-flat">Exit</a>
+    	</div>
+  	</div>
 	<canvas id="main"></canvas>
 </main>

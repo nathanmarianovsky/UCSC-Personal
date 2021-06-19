@@ -31,3 +31,8 @@ header {
 main, body {
   	height: 100%;
 }
+
+.email {
+	text-decoration: underline;
+	text-decoration-color: black;
+}

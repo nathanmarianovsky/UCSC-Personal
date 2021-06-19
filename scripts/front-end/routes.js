@@ -88,9 +88,9 @@ define(["jquery", "math"], ($, Math) => {
 				    var verArr = [1.06, 1.1, 1.04, .97, 1, 1.12, 1.17, 1.08, .92, .81, .8, .98, 1.24, 1.34, 1.12, .61, .26, .46];
 			    }
 			    else if(denom == 420) {
-			    	var sizeArr = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 65, 80, 100, 125, 155, 190, 230, 275];
+			    	var sizeArr = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 65, 80, 100, 125, 155, 190, 230];
 				    var horArr = [.975, 1, 1.025, .995, .935, .93, 1, 1.065, 1.06, .98, .86, .8, .9, 1.1, 1.17, .97, .59];
-				    var verArr = [1, 1.04, .98, .88, .915, 1.06, 1.12, 1.02, .81, .69, .74, 1, 1.28, 1.18, .72, .17, .3];
+				    var verArr = [1.08, 1.13, 1.06, .975, .995, 1.14, 1.21, 1.1, .89, .77, .82, 1.08, 1.36, 1.27, .8, .3, .42];
 			    }
 
 			   //  baseImage = new Image();
@@ -218,6 +218,14 @@ define(["jquery", "math"], ($, Math) => {
 							"z-index": 1
 						}).hide();
 					if(i == sizeArr.length - 1) {
+						if(denom == 370) {
+							var horFix = .035,
+								verFix = .035;
+						}
+						else if(denom == 420) {
+							var horFix = .04,
+								verFix = .04;
+						}
 						var link = $("<a>").attr({
 							"href": "https://www.github.com/nathanmarianovsky",
 							"target": "_blank",
@@ -226,14 +234,22 @@ define(["jquery", "math"], ($, Math) => {
 						var github = $("<img>").attr("src", "/client/github.png").css({
 							"position": "absolute",
 							"width": (sizeArr[i] / 1.5) + "px",
-							"left": (centerx * (horArr[i] + .035)) + "px",
-							"top": (centery * (verArr[i] + .035)) + "px",
+							"left": (centerx * (horArr[i] + horFix)) + "px",
+							"top": (centery * (verArr[i] + verFix)) + "px",
 							"z-index": 3
 						}).hide();
 						link.append(github);
 						collection.push(img, link);
 					}
 					else if(i == sizeArr.length - 2) {
+						if(denom == 370) {
+							var horFix = .055,
+								verFix = .045;
+						}
+						else if(denom == 420) {
+							var horFix = .06,
+								verFix = .05;
+						}
 						var link = $("<a>").attr({
 							"href": "http://www.manualmath.com",
 							"target": "_blank",
@@ -242,8 +258,8 @@ define(["jquery", "math"], ($, Math) => {
 						var manualmath = $("<img>").attr("src", "/client/manualmath.svg").css({
 							"position": "absolute",
 							"width": (sizeArr[i] / 2) + "px",
-							"left": (centerx * (horArr[i] + .055)) + "px",
-							"top": (centery * (verArr[i] + .045)) + "px",
+							"left": (centerx * (horArr[i] + horFix)) + "px",
+							"top": (centery * (verArr[i] + verFix)) + "px",
 							"z-index": 3
 						}).hide();
 						link.append(manualmath);
@@ -313,6 +329,12 @@ define(["jquery", "math"], ($, Math) => {
 		  // //      		$obj = $(this).closest(".notes_table").find("tbody > tr");
 		  // //      		$obj.slideToggle();
 		  // //   	});
+		  		$(".modal-trigger").leanModal({
+		  			dismissible: true,
+					opacity: 2,
+					inDuration: 500,
+					outDuration: 500
+		  		});
 			});
 		});
 	};
