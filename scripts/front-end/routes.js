@@ -13,22 +13,22 @@ define(["jquery", "math"], ($, Math) => {
 					height: $("main").height()
 				})
 
-				var c = document.getElementById("main");
-				var context = c.getContext("2d");
-				var centerx = context.canvas.width / 2;
-				var centery = context.canvas.height / 2;
-				var radMin = context.canvas.width >= context.canvas.height ? context.canvas.height : context.canvas.width;
-				var radMax = context.canvas.width >= context.canvas.height ? context.canvas.width : context.canvas.height;
+				var c = document.getElementById("main"),
+					context = c.getContext("2d"),
+					centerx = context.canvas.width / 2,
+					centery = context.canvas.height / 2,
+					radMin = context.canvas.width >= context.canvas.height ? context.canvas.height : context.canvas.width,
+					radMax = context.canvas.width >= context.canvas.height ? context.canvas.width : context.canvas.height;
 
-			 	var num = 1;
-			 	var denom = 0;
+			 	var num = 1,
+			 		denom = 0;
 
 			 	if(radMin < 500) { denom = 450; }
 			 	else if(500 <= radMin && radMin < 1000) { denom = 420; }
 			 	else if(1000 <= radMin && radMin < 2000) { denom = 370; }
 
-			 	var pow = num / denom;
-			 	var holder = 0;
+			 	var pow = num / denom,
+			 		holder = 0;
 
 			 	console.log(radMin, denom);
 
@@ -81,6 +81,7 @@ define(["jquery", "math"], ($, Math) => {
 			    }
 
 			    context.globalAlpha = 1;
+
 			    var baseImage = "";
 			    if(denom == 370) {
 				    var sizeArr = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 65, 80, 100, 125, 155, 190, 230, 275];
@@ -93,118 +94,10 @@ define(["jquery", "math"], ($, Math) => {
 				    var verArr = [1.08, 1.13, 1.06, .975, .995, 1.14, 1.21, 1.1, .89, .77, .82, 1.08, 1.36, 1.27, .8, .3, .42];
 			    }
 
-			   //  baseImage = new Image();
-			  	// baseImage.src = "/client/hex.svg";
-			  	// baseImage.onload = function() {
-			   //  	context.drawImage(baseImage, centerx * .98, centery, 10, 10);
-			  	// }
-
-			  	// baseImage = new Image();
-			  	// baseImage.src = "/client/hex.svg";
-			  	// baseImage.onload = function() {
-			   //  	context.drawImage(baseImage, centerx, centery * 1.03, 15, 15);
-			  	// }
-
-			 //  	var index = 0;
-				// var interval = setInterval(function() {
-				// 	baseImage = new Image();
-				// 	baseImage.onload = (function(cur) {
-				// 		return function() {
-		  //   				context.drawImage(baseImage, centerx * horArr[cur], centery * verArr[cur], sizeArr[cur], sizeArr[cur]);
-				// 		}
-			 //  		}(index));
-				// 	baseImage.src = "/client/hex.svg";
-
-				// 	if(index == 17) {
-				// 		baseImage.useMap = 
-				// 	}
-
-			 //  		index++;
-			 //  		if(index >= sizeArr.length) { clearInterval(interval); }
-				// }, 150);
-
-
-
-
-				// for(var i = 0; i < collection.length; i++) {
-				// 	$("main").append(div);
-				// 	// console.log(collection[i]);
-				// 	setTimeout(function(param) {
-				// 		// console.log("hello");
-				// 		// console.log(param);
-				// 		$("#container").append(param);
-				// 		param.show("slow");
-				// 	}, 100 * i, collection[i]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-				// // console.log("hello");
-
-				// var sizeArr = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "65", "80", "100", "125", "155", "190", "230", "275", "325"],
-				// 	leftArr = ["50.6", "51", "50", "48.6", "48.5", "51", "52", "50", "46.3", "45.6", "49", "54", "53", "44", "38", "48", "60.5", "53", "28"],
-				// 	topArr = ["61.5", "59.5", "57.3", "58", "62", "62.6", "58", "53", "55", "62", "67.7", "62", "47", "42.2", "60", "77.8", "56", "20.5", "23"],
-				var	collection = [];
-
-				var width = $(window).width(),
+				var	collection = [],
+					width = $(window).width(),
 					height = $(window).height(),
-					origWidth = width,
-					origHeight = height;
-
-				// // console.log(width, height);
-
-				// $(window).resize(function() {
-				// 	var curWidth = $(window).width(),
-				// 		curHeight = $(window).height();
-				// 	// console.log(width, height);
-				// 	if(curHeight >= curWidth) {
-				// 		$("main").css("background-size", "auto 100%");
-				// 	}
-				// 	else {
-				// 		$("main").css("background-size", "100% auto");
-				// 	}
-				// 	console.log(curWidth, origWidth);
-				// 	if(curWidth < origWidth) {
-				// 		// sizeArr = sizeArr.map(x => String(parseFloat(x) * .6));
-				// 		// leftArr = leftArr.map(x => String(parseFloat(x) - 0.1));
-				// 		// topArr = topArr.map(x => String(parseFloat(x) + 2.7));
-				// 		$(".polygon").each(function(index) {
-				// 			// var iterWidth = ($(this).css("width")),
-				// 			// 	iterLeft = $(this).css("left"),
-				// 			// 	iterTop = $(this).css("top");
-				// 			// $(this).css({
-				// 			// 	"width": parseFloat(iterWidth.slice
-				// 			// });
-				// 			console.log($(this).css("left"));
-				// 		});
-				// 	}
-				// 	else {
-				// 		// sizeArr = sizeArr.map(x => String(parseFloat(x) * 1.18));
-				// 		// leftArr = leftArr.map(x => String(parseFloat(x) + 0.1));
-				// 		// topArr = topArr.map(x => String(parseFloat(x) - 2.7));
-				// 	}
-				// 	width = curWidth;
-				// 	height = curHeight;
-				// });
-
-				// sizeArr = sizeArr.map(x => String(parseFloat(x) * .8));
-
-				// // var sizeArr = ["10", "15", "20"],
-				// // 	leftArr = ["50.6", "51", "50"],
-				// // 	topArr = ["61.5", "59.5", "57.3"],
-				// // 	collection = [];
-
-				var div = $("<div>").attr("id", "container").css("height", "inherit");
+					div = $("<div>").attr("id", "container").css("height", "inherit");
 
 				for(var i = 0; i < sizeArr.length; i++) {
 					var img = $("<img>").attr({
@@ -268,14 +161,7 @@ define(["jquery", "math"], ($, Math) => {
 					else {
 						collection.push(img);
 					}
-					// if(sizeArr[i] == "65") {
-					// 	img.append($("<img>").attr("src", "/client/github.png"))
-					// }
-					// var div = $("<div>").css("height", "inherit").append(img);
-					// div.append(img);
 				}
-
-				console.log(width);
 
 				div.css({
 					"width": width,
@@ -284,51 +170,13 @@ define(["jquery", "math"], ($, Math) => {
 
 				for(var i = 0; i < collection.length; i++) {
 					$("main").append(div);
-					// console.log(collection[i]);
-					setTimeout(function(param, index) {
-						// console.log("hello");
-						// console.log(param);
+					setTimeout(function(param) {
 						div.append(param);
-						// if(index == 18) {
-						// 	// console.log(param.children());
-						// 	param.children().show("slow");
-						// }
-						// else {
-							param.show("slow");
-							param.children().show("slow");
-						// }
-					}, 100 * i, collection[i], i);
-
-					// sleep(1000).then(() => {$("#container").append(collection[i]);});
-					// var start = new Date().getTime();
-					// console.log("start " + start);
-			  // 		for (var i = 0; i < 1e7; i++) {
-				 //    	if ((new Date().getTime() - start) > 100){
-				 //     		console.log("breaking");
-				 //     		break;
-				 //    	}
-			  // 		}
-			  // 		console.log("hello");
-			  // 		console.log($("#container"));
+						param.show("slow");
+						param.children().show("slow");
+					}, 100 * i, collection[i]);
 				}
-
-				// // $("body").css({
-				// // 	"background-image": "url('/client/Untitled-1.svg')",
-				// // 	"background-repeat": "no-repeat",
-				// // 	"background-attachment": "fixed",
-				// // 	"background-size": "100% 100%",
-				// // 	"-webkit-mask-image": "radial-gradient(circle at center, transparent 25%, black 75%)",
-		  // // 			"mask-image": "radial-gradient(circle at center, transparent 25%, black 75%)"
-				// // });
-
-				// // MathJax.Hub.Queue(["Typeset",MathJax.Hub,"main"]);
-
-				// // $(".notes_table > tbody > tr").hide();
-
-				// // $(".notes_table > thead > tr").click(function() {
-		  // //      		$obj = $(this).closest(".notes_table").find("tbody > tr");
-		  // //      		$obj.slideToggle();
-		  // //   	});
+				
 		  		$(".modal-trigger").leanModal({
 		  			dismissible: true,
 					opacity: 2,
