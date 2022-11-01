@@ -10,7 +10,7 @@
     "router5": "^0.6.4"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-install": "^0.6.0"
   },
   "scripts": {
